@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "1036215357885",
+    "firebase_url": "https://ayush-brew-crew-7fcdf.firebaseio.com",
+    "project_id": "ayush-brew-crew-7fcdf",
+    "storage_bucket": "ayush-brew-crew-7fcdf.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1036215357885:android:99115f047363e8e25602d4",
+        "android_client_info": {
+          "package_name": "com.example.brewcrew"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1036215357885-8937kahuhi2m6lad85s1r875m9kb7ild.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBLlAfQAQ6zoaXdF2NuJP6cvCwYF4_vb7I"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1036215357885-8937kahuhi2m6lad85s1r875m9kb7ild.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
