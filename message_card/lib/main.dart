@@ -10,6 +10,10 @@ class MessageCard extends StatefulWidget {
 }
 
 class _MessageCardState extends State<MessageCard> {
+  TextEditingController control = new TextEditingController();
+  String message = "Messages";
+  Color textcolor = Colors.red;
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -17,36 +21,57 @@ class _MessageCardState extends State<MessageCard> {
         appBar: AppBar(
           title: Text(" My Message Card"),
           centerTitle: true,
-          backgroundColor: Colors.red,
+          backgroundColor: textcolor,
         ),
         body: ListView(
           children: [
             Padding(
               padding: EdgeInsets.all(8.0),
               child: Container(
-                height: 360.0,
-                color: Colors.red,
+                height: 360,
+                width: 400,
+                color: textcolor,
+                child: Center(
+                  child: Text(message),
+                ),
               ),
             ),
             Padding(
               padding: EdgeInsets.all(8.0),
               child: TextField(
+                controller: control,
+                onChanged: (String value) {
+                  setState(() {
+                    message = value;
+                  });
+                },
                 keyboardType: TextInputType.text,
                 decoration: InputDecoration(
-                  border: OutlineInputBorder(),
-                  prefixIcon: Icon(Icons.edit, color: Colors.red),
+                  border:
+                      OutlineInputBorder(), // to add border around the widget
+                  focusedBorder: OutlineInputBorder(
+                    borderSide: BorderSide(color: textcolor),
+                  ), //adjusting the color of border
+                  prefixIcon: Icon(Icons.edit, color: textcolor),
                   hintText: "Your Message",
                   helperText: "You can write your message",
                 ),
               ),
             ),
-            RaisedButton(
-              onPressed: () {},
-              child: Text(
-                "Clear the text",
-                style: TextStyle(color: Colors.white, fontSize: 20.0),
+            Padding(
+              padding: EdgeInsets.all(8.0),
+              child: RaisedButton(
+                onPressed: () {
+                  setState(() {
+                    control.clear();
+                  });
+                },
+                child: Text(
+                  "Clear the text",
+                  style: TextStyle(color: Colors.white, fontSize: 20.0),
+                ),
+                color: textcolor,
               ),
-              color: Colors.red,
             ),
             Card(
               child: Padding(
@@ -54,17 +79,45 @@ class _MessageCardState extends State<MessageCard> {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
-                    CircleAvatar(
-                      backgroundColor: Colors.red,
+                    InkWell(
+                      onTap: () {
+                        setState(() {
+                          textcolor = Colors.red;
+                        });
+                      },
+                      child: CircleAvatar(
+                        backgroundColor: Colors.red,
+                      ),
                     ),
-                    CircleAvatar(
-                      backgroundColor: Colors.blue,
+                    InkWell(
+                      onTap: () {
+                        setState(() {
+                          textcolor = Colors.blue;
+                        });
+                      },
+                      child: CircleAvatar(
+                        backgroundColor: Colors.blue,
+                      ),
                     ),
-                    CircleAvatar(
-                      backgroundColor: Colors.pink,
+                    InkWell(
+                      onTap: () {
+                        setState(() {
+                          textcolor = Colors.pink;
+                        });
+                      },
+                      child: CircleAvatar(
+                        backgroundColor: Colors.pink,
+                      ),
                     ),
-                    CircleAvatar(
-                      backgroundColor: Colors.green,
+                    InkWell(
+                      onTap: () {
+                        setState(() {
+                          textcolor = Colors.green;
+                        });
+                      },
+                      child: CircleAvatar(
+                        backgroundColor: Colors.green,
+                      ),
                     ),
                   ],
                 ),
