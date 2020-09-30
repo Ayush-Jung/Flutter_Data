@@ -13,16 +13,23 @@ class _HomePgaeState extends State<HomePgae> {
     return Scaffold(
       backgroundColor: Colors.black,
       appBar: AppBar(
-        backgroundColor: Colors.grey[600],
-        leading: Icon(Icons.camera_enhance),
-        title: Text("Instagram"),
+        backgroundColor: Colors.white.withOpacity(0.1),
         automaticallyImplyLeading: false,
-        centerTitle: true,
+        title: Row(
+          children: [
+            Icon(
+              Icons.camera_enhance,
+              size: 32.0,
+            ),
+            SizedBox(width: 10.0),
+            Text('Instagram'),
+          ],
+        ),
         actions: [
           IconButton(
             onPressed: () {},
             icon: Icon(Icons.send),
-          )
+          ),
         ],
       ),
       body: ListView.builder(
