@@ -3,42 +3,45 @@ import 'models/imsge_model.dart';
 import 'dart:convert';
 import 'package:http/http.dart';
 import 'widget/image_list.dart';
+import 'package:day_night_switcher/day_night_switcher.dart';
 
 class First extends StatefulWidget {
   @override
   _FirstState createState() => _FirstState();
-  setState(){
+  setState() {
     return _FirstState();
   }
 }
+
 class _FirstState extends State<First> {
+  List<ImageModel> images = [];
 
-  List<ImageModel> images=[];
+  void fetchImage() async {
+    counter++;
+    var response =
+        await get('http://jsonplaceholder.typicode.com/photos/$counter');
+    var imageModel = ImageModel.fromJson(json.decode(response.body));
 
-void fetchImage() async{
-  counter++;
-  var response= await get('http://jsonplaceholder.typicode.com/photos/$counter');
-  var imageModel=ImageModel.fromJson(json.decode(response.body));
+    setState(() {
+      images.add(imageModel);
+    });
+  }
 
-  setState(() {
-    images.add(imageModel);
-  });
-
-}
-  int counter=0;
+  int counter = 0;
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       home: Scaffold(
         floatingActionButton: FloatingActionButton(
           child: Icon(Icons.add),
-          onPressed:fetchImage,
+          onPressed: fetchImage,
         ),
         appBar: AppBar(
-          title:Text(' MyProject'),
+          title: Text(' MyProject'),
           centerTitle: true,
-        ),  body: ImageList(images),
-
         ),
-    ); }
+        body: ImageList(images),
+      ),
+    );
+  }
 }
