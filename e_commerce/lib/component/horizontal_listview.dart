@@ -1,3 +1,4 @@
+import 'package:e_commerce/pages/product_data.dart';
 import 'package:flutter/material.dart';
 
 class HorizontalList extends StatelessWidget {

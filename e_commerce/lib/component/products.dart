@@ -1,3 +1,5 @@
+import 'package:e_commerce/ProductData/product.dart';
+import 'package:e_commerce/pages/product_data.dart';
 import 'package:flutter/material.dart';
 
 class Products extends StatefulWidget {
@@ -6,20 +8,7 @@ class Products extends StatefulWidget {
 }
 
 class _ProductsState extends State<Products> {
-  var product_list = [
-    {
-      "name": "Blazer",
-      "picture": "images/blazer1.jpeg",
-      "old_price": 120,
-      "price": 85,
-    },
-    {
-      "name": "Red dress",
-      "picture": "images/dress1.jpeg",
-      "old_price": 100,
-      "price": 50,
-    }
-  ];
+  var product_list = data;
   @override
   Widget build(BuildContext context) {
     return GridView.builder(
@@ -55,7 +44,17 @@ class Single_Prod extends StatelessWidget {
         tag: prod_name,
         child: Material(
           child: InkWell(
-            onTap: () {},
+            onTap: () {
+              Navigator.of(context).push(
+                MaterialPageRoute(
+                    builder: (context) => Productdetails(
+                          product_detail_name: prod_name,
+                          product_detail_new_price: prod_price,
+                          product_detail_old_price: prod_old_price,
+                          product_detail_picture: prod_picture,
+                        )),
+              );
+            },
             child: GridTile(
               footer: Container(
                 color: Colors.white70,
