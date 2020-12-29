@@ -20,16 +20,7 @@ class Taskcard extends StatelessWidget {
                 fontSize: 24.0,
                 fontWeight: FontWeight.bold),
           ),
-          Padding(
-            padding: EdgeInsets.only(top: 10.0),
-            child: Text(
-              desc ?? ("No description Added"),
-              style: TextStyle(
-                fontSize: 16.0,
-                height: 1.5,
-              ),
-            ),
-          ),
+          DescripUi(desc),
         ],
       ),
       decoration: BoxDecoration(
@@ -40,46 +31,17 @@ class Taskcard extends StatelessWidget {
   }
 }
 
-class ToDoCheck extends StatelessWidget {
-  final String text;
-  final bool isDone;
-
-  ToDoCheck({this.text, @required this.isDone});
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      padding: EdgeInsets.symmetric(vertical: 10.0, horizontal: 24.0),
-      child: Row(
-        children: [
-          Container(
-            height: 25.0,
-            width: 25.0,
-            decoration: BoxDecoration(
-              border: isDone
-                  ? null
-                  : Border.all(color: Color(0xFF7349FE), width: 1.5),
-              color: isDone ? Color(0xFF7349FE) : Colors.transparent,
-              borderRadius: BorderRadius.circular(6.0),
-            ),
-            child: Image(
-              image: AssetImage("assets/images/check_icon.png"),
-            ),
-          ),
-          SizedBox(
-            width: 10.0,
-          ),
-          Text(
-            text ?? "(UnNamed ToDo)",
-            style: TextStyle(
-              fontSize: 16.0,
-              fontWeight: isDone ? FontWeight.bold : FontWeight.w500,
-              color: isDone ? Color(0xFF211551) : Color(0XFF86829D),
-            ),
-          ),
-        ],
+Widget DescripUi(String desc) {
+  return Padding(
+    padding: EdgeInsets.only(top: 10.0),
+    child: Text(
+      desc ?? ("No description Added"),
+      style: TextStyle(
+        fontSize: 16.0,
+        height: 1.5,
       ),
-    );
-  }
+    ),
+  );
 }
 
 class NoScrollBehaviour extends ScrollBehavior {

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_complete_guide/Provider/titleNotifier.dart';
 import 'package:flutter_complete_guide/Widget.dart';
-import 'package:flutter_complete_guide/databse_helper.dart';
+import 'package:provider/provider.dart';
 import 'package:flutter_complete_guide/screens/taskpage.dart';
 
 class HomePage extends StatefulWidget {
@@ -9,7 +10,6 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  DatabaseHelper _dbhelper = DatabaseHelper();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -30,21 +30,34 @@ class _HomePageState extends State<HomePage> {
                     ),
                   ),
                   Expanded(
-                    child: FutureBuilder(
-                        initialData: [],
-                        future: _dbhelper.getTask(),
-                        builder: (context, snapshot) {
-                          return ScrollConfiguration(
-                            behavior: NoScrollBehaviour(),
-                            child: ListView.builder(
-                                itemCount: snapshot.data.length,
-                                itemBuilder: (context, index) {
-                                  return Taskcard(
-                                    title: snapshot.data[index].title,
+                    child: Consumer<TitleNotifier>(builder: (
+                      context,
+                      addTitle,
+                      _,
+                    ) {
+                      return ScrollConfiguration(
+                        behavior: NoScrollBehaviour(),
+                        child: ListView.builder(
+                            itemCount: addTitle.titlelist.length,
+                            itemBuilder: (context, index) {
+                              return GestureDetector(
+                                onTap: () {
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) =>
+                                          TaskPage(task: null),
+                                    ),
                                   );
-                                }),
-                          );
-                        }),
+                                },
+                                child: Taskcard(
+                                  title: addTitle.titlelist[index].title,
+                                  desc: addTitle.titlelist[index].description,
+                                ),
+                              );
+                            }),
+                      );
+                    }),
                   ),
                 ],
               ),
@@ -55,10 +68,12 @@ class _HomePageState extends State<HomePage> {
                   onTap: () {
                     Navigator.push(
                       context,
-                      MaterialPageRoute(builder: (context) => TaskPage()),
-                    ).then((value) {
-                      setState(() {});
-                    });
+                      MaterialPageRoute(
+                        builder: (context) => TaskPage(
+                          task: null,
+                        ),
+                      ),
+                    );
                   },
                   child: Container(
                     width: 60.0,
