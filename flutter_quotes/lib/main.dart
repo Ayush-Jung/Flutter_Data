@@ -1,11 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_quotes/quote.dart';
-import 'quote_Card.dart';
 
-void main()=>runApp(MaterialApp(
-    home: Quotelist(),
-
-  ));
+void main() => runApp(MaterialApp(
+      home: Quotelist(),
+    ));
 
 class Quotelist extends StatefulWidget {
   @override
@@ -13,12 +10,11 @@ class Quotelist extends StatefulWidget {
 }
 
 class _QuoteState extends State<Quotelist> {
-
-  List<Quote>quotes=[
-    Quote(author:'ayush',text: 'this is us'),
-    Quote(author:'jung',text: 'this is we'),
-
-  ];
+  // Uri url = //jsonplaceholder.typicode.com/photos;
+//   Future<Quote> fetchQuotes() async {
+//     await http.
+// return ;
+//   }
 
   @override
   Widget build(BuildContext context) {
@@ -28,16 +24,7 @@ class _QuoteState extends State<Quotelist> {
         centerTitle: true,
         backgroundColor: Colors.amber[800],
       ),
-body: Column(
-  children: quotes.map((quote)=>QuoteCard(
-    quote:quote,
-    delete:(){
-      setState(() {
-        quotes.remove(quote);
-      });
-    }
-  )).toList(),
-),
+      body: Column(),
     );
   }
 }

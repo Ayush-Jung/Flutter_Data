@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_complete_guide/Database/databaseHelper.dart';
 import 'package:flutter_complete_guide/Provider/titleNotifier.dart';
 import 'package:flutter_complete_guide/Widget.dart';
 import 'package:provider/provider.dart';
@@ -10,6 +11,7 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  DatabaseHelper _dbhelper = DatabaseHelper();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -37,25 +39,21 @@ class _HomePageState extends State<HomePage> {
                     ) {
                       return ScrollConfiguration(
                         behavior: NoScrollBehaviour(),
-                        child: ListView.builder(
-                            itemCount: addTitle.titlelist.length,
-                            itemBuilder: (context, index) {
-                              return GestureDetector(
-                                onTap: () {
-                                  Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                      builder: (context) =>
-                                          TaskPage(task: null),
-                                    ),
-                                  );
-                                },
-                                child: Taskcard(
-                                  title: addTitle.titlelist[index].title,
-                                  desc: addTitle.titlelist[index].description,
-                                ),
-                              );
-                            }),
+                        child: FutureBuilder(
+                          initialData: [],
+                          future: _dbhelper.getTask(),
+                          builder: (context, snapshot) {
+                            return ListView.builder(
+                              itemCount: snapshot.data.length,
+                              itemBuilder: (context, index) {
+                                return Taskcard(
+                                  title: snapshot.data[index].title,
+                                  desc: snapshot.data[index].description,
+                                );
+                              },
+                            );
+                          },
+                        ),
                       );
                     }),
                   ),

@@ -20,7 +20,7 @@ class Taskcard extends StatelessWidget {
                 fontSize: 24.0,
                 fontWeight: FontWeight.bold),
           ),
-          DescripUi(desc),
+          descrip(desc),
         ],
       ),
       decoration: BoxDecoration(
@@ -31,7 +31,7 @@ class Taskcard extends StatelessWidget {
   }
 }
 
-Widget DescripUi(String desc) {
+Widget descrip(String desc) {
   return Padding(
     padding: EdgeInsets.only(top: 10.0),
     child: Text(

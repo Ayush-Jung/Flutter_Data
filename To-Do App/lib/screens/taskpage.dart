@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_complete_guide/Database/databaseHelper.dart';
 import 'package:flutter_complete_guide/Provider/titleNotifier.dart';
 import 'package:flutter_complete_guide/models/task.dart';
 import 'package:provider/provider.dart';
@@ -7,11 +8,13 @@ import 'package:provider/provider.dart';
 class TaskPage extends StatefulWidget {
   final Task task;
   TaskPage({@required this.task});
+
   @override
   _TaskPageState createState() => _TaskPageState();
 }
 
 class _TaskPageState extends State<TaskPage> {
+  DatabaseHelper _databaseHelper = DatabaseHelper();
   TextEditingController _titleController = new TextEditingController();
   TextEditingController _descController = new TextEditingController();
 
@@ -66,10 +69,11 @@ class _TaskPageState extends State<TaskPage> {
                           onSubmitted: (value) async {
                             //check if the field isnot null
                             if (value != "") {
-                              // check if task is null
-                              // Provider.of<TitleNotifier>(context, listen: false)
-                              //     .addTitle(_titleController.text,
-                              //         _descController.text);
+                              Task _insertTask = Task(title: value);
+                              _databaseHelper.insertTask(_insertTask);
+                              Provider.of<TitleNotifier>(context, listen: false)
+                                  .addTitle(_titleController.text,
+                                      _descController.text);
                               _descriptionfocus.requestFocus();
                             }
                           },
