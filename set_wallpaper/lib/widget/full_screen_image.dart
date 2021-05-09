@@ -2,6 +2,8 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_cache_manager/flutter_cache_manager.dart';
+import 'package:http/http.dart';
+import 'package:path_provider/path_provider.dart';
 import 'package:wallpaper_manager/wallpaper_manager.dart';
 import 'package:path_provider/path_provider.dart' as pathProvider;
 
@@ -25,26 +27,24 @@ class _FullScrrenImageState extends State<FullScrrenImage> {
     loader = false;
   }
 
-  // downloadImage() {
-  //   Future<void> _download() async {
-  //     // Get the image name
-  //     final imagePath = path.baseName(url)
-  //     // Get the document directory path
-  //     final appDir = await pathProvider.getApplicationDocumentsDirectory();
+  downloadImage(String url) async {
+    int value = 0;
+    loader = true;
+    var response = await get(Uri.parse(url));
+    print("Response: $response");
+    var documentDirectory = await getApplicationDocumentsDirectory();
+    print("documentdirectory $documentDirectory");
+    var firstPath = documentDirectory.path + "/wallpaper";
+    print("firstpath $firstPath");
+    value = value + 1;
+    var filePathAndName = documentDirectory.path + '/wallpaper/$value';
+    print("filepathandname $filePathAndName");
 
-  //     // This is the saved image path
-  //     // You can use it to display the saved image later.
-  //     final localPath = path.join(appDir.path, imageName);
-
-  //     // Downloading
-  //     final imageFile = File(localPath);
-  //     await imageFile.writeAsBytes(response.bodyBytes);
-
-  //     setState(() {
-  //       _displayImage = imageFile;
-  //     });
-  //   }
-  // }
+    await Directory(firstPath).create(recursive: true);
+    File file2 = new File(filePathAndName);
+    file2.writeAsBytesSync(response.bodyBytes);
+    print("saved");
+  }
 
   chooseMethod() {
     return showModalBottomSheet(
@@ -54,9 +54,9 @@ class _FullScrrenImageState extends State<FullScrrenImage> {
             mainAxisSize: MainAxisSize.min,
             children: <Widget>[
               ListTile(
-                title: Text("Download"),
+                title: loader ? CircularProgressIndicator() : Text("Download"),
                 onTap: () {
-                  // downloadImage();
+                  downloadImage(widget.image);
                 },
               ),
               ListTile(
